@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var targetValue = Int.random(in: 0...100)
+    @State var curentValue = 25.0
+    @State var opacity = 100
+    @State var alert = false
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            HStack {
+                Text("0")
+                UIKitSlider(sliderValue: $curentValue, thumbOpacity: $opacity)
+                Text("100")
+            }
+            Button("Проверь меня", action: {})
+            Button("Начать заново", action: {})
         }
         .padding()
     }
