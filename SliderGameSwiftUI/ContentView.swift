@@ -14,14 +14,24 @@ struct ContentView: View {
     @State var alert = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 40) {
+            Text("Подвинь слайдер, как можно ближе к \(targetValue)")
             HStack {
                 Text("0")
                 UIKitSlider(sliderValue: $curentValue, thumbOpacity: $opacity)
                 Text("100")
             }
-            Button("Проверь меня", action: {})
-            Button("Начать заново", action: {})
+            
+            Button(" ПРОВЕРЬ МЕНЯ ", action: {})
+                .buttonStyle(.bordered)
+                .font(.title2)
+                .padding(.top, 150)
+            Button("НАЧАТЬ ЗАНОВО") {
+                targetValue = Int.random(in: 0...100)
+            }
+                .buttonStyle(.bordered)
+                .font(.title2)
+            
         }
         .padding()
     }
