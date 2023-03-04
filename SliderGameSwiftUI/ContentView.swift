@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     @State var targetValue = Int.random(in: 0...100)
-    @State var curentValue = 25.0
+    @State var curentValue = 50.0
     @State var opacity = 100
     @State var alert = false
     
     var body: some View {
         VStack(spacing: 40) {
+            Text("\(curentValue)") // временноое поле
             Text("Подвинь слайдер, как можно ближе к \(targetValue)")
             HStack {
                 Text("0")
@@ -29,9 +30,8 @@ struct ContentView: View {
             Button("НАЧАТЬ ЗАНОВО") {
                 targetValue = Int.random(in: 0...100)
             }
-                .buttonStyle(.bordered)
-                .font(.title2)
-            
+            .buttonStyle(.bordered)
+            .font(.title2)
         }
         .padding()
     }

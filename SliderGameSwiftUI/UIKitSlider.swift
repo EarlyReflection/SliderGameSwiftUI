@@ -9,17 +9,18 @@ import SwiftUI
 
 // Подписываемся под протокол и реализуем 2 обязательных метода - makeUIView, updateUIView
 struct UIKitSlider: UIViewRepresentable {
-    
     @Binding var sliderValue: Double
     @Binding var thumbOpacity: Int
     
-    
     func makeUIView(context: Context) -> UISlider {
-        
         let uiSlider = UISlider()
         uiSlider.maximumValue = 0
         uiSlider.maximumValue = 100
         uiSlider.minimumTrackTintColor = UIColor.darkGray
+        
+        uiSlider.addTarget(context.coordinator,
+                           action: #selector(Coordinator.valueChanged),
+                           for: .valueChanged)
         
         return uiSlider
     }
@@ -28,7 +29,26 @@ struct UIKitSlider: UIViewRepresentable {
         uiView.value = Float(sliderValue)
         uiView.thumbTintColor = UIColor.darkGray.withAlphaComponent(CGFloat(thumbOpacity) / 100)
     }
+    
+    // обязательный метод для инициализации Coordinator
+    func makeCoordinator() -> Coordinator {
+        Coordinator.init(value: $sliderValue)
+    }
+}
 
+//класс Coordinator - это посредник для передачи и приема данных в SwiftUI
+extension UIKitSlider {
+    class Coordinator: NSObject {
+        @Binding var value: Double
+        
+        init(value: Binding<Double>) {
+            self._value = value
+        }
+        // принимает UISlider и передает его значение в переменную value
+        @objc func valueChanged(_ sender: UISlider) {
+            value = Double(sender.value)
+        }
+    }
 }
 
 struct UIKitSlider_Previews: PreviewProvider {
