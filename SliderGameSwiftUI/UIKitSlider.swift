@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-// Подписываемся под протокол и реализуем 2 обязательных метода - makeUIView, updateUIView
+// Подписываемся под протокол и реализуем обязательные методы: makeUIView, updateUIView
 struct UIKitSlider: UIViewRepresentable {
     @Binding var sliderValue: Double
-    @Binding var thumbOpacity: Int
+    var thumbOpacity: Int
     
     func makeUIView(context: Context) -> UISlider {
         let uiSlider = UISlider()
@@ -38,7 +38,7 @@ struct UIKitSlider: UIViewRepresentable {
 
 //класс Coordinator - это посредник для передачи и приема данных в SwiftUI
 extension UIKitSlider {
-    class Coordinator: NSObject {
+    final class Coordinator: NSObject {
         @Binding var value: Double
         
         init(value: Binding<Double>) {
@@ -53,6 +53,9 @@ extension UIKitSlider {
 
 struct UIKitSlider_Previews: PreviewProvider {
     static var previews: some View {
-        UIKitSlider(sliderValue: .constant(66), thumbOpacity: .constant(100))
+        UIKitSlider(
+            sliderValue: .constant(66),
+            thumbOpacity: 100
+        )
     }
 }
