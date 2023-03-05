@@ -10,7 +10,7 @@ import SwiftUI
 // Подписываемся под протокол и реализуем обязательные методы: makeUIView, updateUIView
 struct UIKitSlider: UIViewRepresentable {
     @Binding var sliderValue: Double
-    var thumbOpacity: Int
+    let thumbOpacity: Int
     
     func makeUIView(context: Context) -> UISlider {
         let uiSlider = UISlider()
@@ -18,9 +18,11 @@ struct UIKitSlider: UIViewRepresentable {
         uiSlider.maximumValue = 100
         uiSlider.minimumTrackTintColor = UIColor.darkGray
         
-        uiSlider.addTarget(context.coordinator,
-                           action: #selector(Coordinator.valueChanged),
-                           for: .valueChanged)
+        uiSlider.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.valueChanged),
+            for: .valueChanged
+        )
         
         return uiSlider
     }
